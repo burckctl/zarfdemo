@@ -10,11 +10,11 @@ section "DEPLOY ZARF PACKAGE INTO SECURE LOCATION \"airgapped\""
 # download the required binaries
 proceed_or_not "Download zarf, zarf init package and example package. Proceed?"
 
-info_pause_exec "Installing zarf" "chmod a+x zarf && sudo mv zarf /usr/local/bin"
+info_pause_exec "Installing zarf" "[ -x $(command -v zarf) ] || { chmod a+x zarf; sudo mv zarf /usr/local/bin; } "
 
 section "CREATE CLUSTER"
-info_pause_exec "Install k3d" "curl -s https://raw.githubusercontent.com/rancher/k3d/master/install.sh | bash"
-info_pause_exec "Install k9s" "curl -sS https://webinstall.dev/k9s | bash"
+info_pause_exec "Install k3d" "[ -x $(command -v k3d) ] || { curl -s https://raw.githubusercontent.com/rancher/k3d/master/install.sh | bash; }"
+info_pause_exec "Install k9s" "[ -x $(command -v k3d) ] || { curl -sS https://webinstall.dev/k9s | bash; }"
 info_pause_exec "Create K3D Cluster" "k3d cluster create demo --no-lb --k3s-arg '--disable=traefik@server:*' --k3s-arg '--disable=metrics-server@server:*'"
 
 section "ZARF INIT CLUSTER"

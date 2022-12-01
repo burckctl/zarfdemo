@@ -10,11 +10,11 @@ section "CREATE ZARF PACKAGE"
 # Download and install zarf
 section "Install Zarf"
 proceed_or_not "Downloaded the binary? Proceed?"
-info_pause_exec "Installing zarf" "chmod a+x zarf && sudo mv zarf /usr/local/bin"
+info_pause_exec "Installing zarf" "[ -x $(command -v zarf) ] || { chmod a+x zarf; sudo mv zarf /usr/local/bin; } "
 
 # pause to inspect 
 section "Inspect a Zarf manifest example"
-proceed_or_not "Pause and validate the zarf manifest of game example. Proceed?"
+proceed_or_not "validate the zarf manifest of game example. Proceed?"
 
 # create zarf package
 section "Creating package"
